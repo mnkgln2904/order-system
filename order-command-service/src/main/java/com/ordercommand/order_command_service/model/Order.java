@@ -2,36 +2,25 @@ package com.ordercommand.order_command_service.model;
 
 import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private String description;
-    private double price;
+    private Long id;
 
-    public String getId() {
-        return id;
-    }
+    private String customerName;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String status;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    private Double amount;
 }

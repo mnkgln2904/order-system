@@ -1,24 +1,28 @@
 package com.ordercommand.order_command_service.service;
 
 import com.ordercommand.order_command_service.model.Order;
-import com.ordercommand.order_command_service.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
 
-@Service
-public class OrderService {
+import java.util.List;
 
-    @Autowired
-    private OrderRepository repository;
+public interface OrderService {
 
-    @Autowired
-    private KafkaTemplate<String, Order> kafkaTemplate;
+    Order createOrder(Order order);
 
-    private static final String TOPIC = "order.events";
+    List<Order> getAllOrders();
 
-    public void createOrder(Order order) {
-        repository.save(order);
-        kafkaTemplate.send(TOPIC, order);
-    }
+    Order getOrderById(Long id);
+
+    Order updateOrder(Long id, Order order);
+
+    void deleteOrder(Long id);
+
+    List<Order> getOrdersByStatus(String status);
+
+    List<Order> getOrdersByCustomerName(String customerName);
+
+    List<Order> getOrdersByAmountGreaterThan(Double amount);
+
+    List<Order> createBulkOrders(List<Order> orders);
+
+    Order updateOrderStatus(Long id, String status);
 }
